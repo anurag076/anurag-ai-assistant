@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Important for mobile -->
+  <title>Anurag AI Assistant</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a237e;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .right-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e3f2fd;
+      color: #1a73e8;
+      border: 1px solid #bbdefb;
+    }
+
+    /* MODE SELECT */
+    .mode-select {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .mode-select select {
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 12px;
+    }
+
+    /* DOWNLOAD BUTTON */
+    .download-btn {
+      font-size: 12px;
+      text-decoration: none;
+      background: #0b8043;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-top: 6px;
+      display: inline-block;
+    }
+    .download-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* CHAT WINDOW */
+    .chat-window {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 12px;
+      height: 460px;
+      overflow-y: auto;
+      background: #fafafa;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      margin-bottom: 12px;
+    }
+    .user {
+      font-weight: 600;
+      color: #1a73e8;
+    }
+    .assistant {
+      font-weight: 600;
+      color: #0b8043;
+    }
+
+    .bubble {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-top: 3px;
+      max-width: 100%;
+      white-space: pre-wrap;
+      position: relative;
+      font-size: 14px;
+    }
+    .bubble-user {
+      background: #e3f2fd;
+    }
+    .bubble-assistant {
+      background: #e8f5e9;
+      padding-right: 70px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: none;
+      background: #1a73e8;
+      color: #fff;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* INPUT SECTION */
+    form {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      align-items: center;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button[type="submit"] {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #1a73e8;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      opacity: 0.95;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .container {
+        padding: 16px;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .right-controls {
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .chat-window {
+        height: 350px;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .bubble {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 18px;
+      }
+
+      .chat-window {
+        height: 300px;
+      }
+
+      form {
+        flex-direction: column;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+      }
+
+      input[type="text"] {
+        width: 100%;
+      }
+
+      .bubble {
+        font-size: 12px;
+      }
+
+      .copy-btn {
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+
+      <div class="title-block">
+        <div class="title">Anurag AI Assistant</div>
+        <div class="subtitle">
+          Your personal trainer for Networking, CCNA, Automation & Python.
+        </div>
+      </div>
+
+      <div class="right-controls">
+        <div class="badge">Powered by Hugging Face Router</div>
+
+        <!-- Mode Selection -->
+        <div class="mode-select">
+          <form id="mode-form" method="post" action="/" style="margin:0; display:flex; gap:4px; align-items:center;">
+            <label for="mode">Mode:</label>
+
+            <select name="mode" id="mode" onchange="document.getElementById('mode-form').submit();">
+              <option value="general"   {% if current_mode == 'general' %}selected{% endif %}>General</option>
+              <option value="ccna"      {% if current_mode == 'ccna' %}selected{% endif %}>CCNA</option>
+              <option value="automation"{% if current_mode == 'automation' %}selected{% endif %}>Automation</option>
+              <option value="python"    {% if current_mode == 'python' %}selected{% endif %}>Python</option>
+            </select>
+
+            <input type="hidden" name="user_input" value="" />
+          </form>
+        </div>
+
+        <!-- Download Button -->
+        <a href="/download" class="download-btn">Download CSV</a>
+      </div>
+
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <div class="chat-window">
+      {% if messages %}
+        {% for m in messages %}
+          <div class="message">
+            {% if m.role == "user" %}
+              <div class="user">You:</div>
+              <div class="bubble bubble-user"><span class="answer-text">{{ m.content }}</span></div>
+            {% else %}
+              <div class="assistant">Anurag AI:</div>
+              <div class="bubble bubble-assistant">
+                <span class="answer-text">{{ m.content }}</span>
+                <button type="button" class="copy-btn" onclick="copyAnswer(this)">Copy</button>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No messages yet. Start chatting!</p>
+      {% endif %}
+    </div>
+
+    <!-- INPUT BOX -->
+    <form method="post" action="/">
+      <input type="hidden" name="mode" value="{{ current_mode }}" />
+      <input type="text" name="user_input" placeholder="Ask Anurag AI..." autofocus />
+      <button type="submit">Send</button>
+    </form>
+
+    <div class="hint">
+      Type <strong>/clear</strong> to reset the chat.
+    </div>
+
+  </div>
+
+  <script>
+    function copyAnswer(button) {
+      const textSpan = button.parentElement.querySelector(".answer-text");
+      const text = textSpan.innerText || textSpan.textContent;
+      navigator.clipboard.writeText(text);
+      alert("Copied to clipboard!");
+    }
+  </script>
+</body>
+</html>
