@@ -2,7 +2,7 @@ import os
 from openai import OpenAI
 
 # Hugging Face access token here
-HF_API_TOKEN = "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" 
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1", 
